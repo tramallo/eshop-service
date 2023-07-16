@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductModule } from './product/product.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -7,7 +7,13 @@ import { MongooseModule } from '@nestjs/mongoose';
     imports: [
         ProductModule,
         ConfigModule.forRoot({ isGlobal: true }),
-        MongooseModule.forRoot('mongodb+srv://db_user_1:ACrXWBJHzKEA1sWu@eshop.2ti5yyj.mongodb.net/?retryWrites=true&w=majority')
+        MongooseModule.forRootAsync({
+            imports: [ConfigModule],
+            useFactory: async (configService: ConfigService) => ({ 
+                uri: configService.get<string>('MONGODB_URI')
+            }),
+            inject: [ConfigService]
+        })
     ],
 })
 export class AppModule {}
