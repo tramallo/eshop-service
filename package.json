@@ -8,8 +8,7 @@
   "scripts": {
     "format": "prettier ./src --write",
     "build": "tsc",
-    "start": "node dist/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsc && node dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.2",
