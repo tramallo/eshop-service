@@ -1,12 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from './product.entity';
+import { ProductEntity } from './product.entity';
 
 @Injectable()
 export class ProductService {
-    async getProducts(): Promise<Product[]> {
-        return [
-            new Product({ id: 'id_prod_1', name: 'prod_1', price: 5 }),
-            new Product({ id: 'id_prod_2', name: 'prod_2', price: 3 }),
-        ];
+    constructor() { }
+
+    async getProducts(): Promise<any[]> {
+        return [];
+    }
+
+    async createProduct() {
+        const newProduct = ProductEntity.create();
+        newProduct.name = 'product 999';
+        newProduct.price = 500;
+
+        return await newProduct.save()
     }
 }

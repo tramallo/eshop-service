@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { Product } from './product.entity';
+import { ProductEntity } from './product.entity';
 
 @Controller('product')
 export class ProductController {
@@ -11,9 +11,14 @@ export class ProductController {
     }
 
     @Get()
-    async getProducts(): Promise<Product[]> {
+    async getProducts(): Promise<any[]> {
         const products = await this.productService.getProducts();
 
         return products;
+    }
+
+    @Post()
+    async createProduct(): Promise<ProductEntity> {
+        return await this.productService.createProduct();
     }
 }

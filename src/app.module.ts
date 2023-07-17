@@ -1,19 +1,24 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductModule } from './product/product.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
     imports: [
         ProductModule,
-        ConfigModule.forRoot({ isGlobal: true }),
-        MongooseModule.forRootAsync({
+        ConfigModule.forRoot(),
+        TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
-            useFactory: async (configService: ConfigService) => ({ 
-                uri: configService.get<string>('MONGODB_URI')
+            inject: [ConfigService],
+            useFactory: async (configService: ConfigService) => ({
+                type: "mongodb",
+                url: configService.get('MONGODB_URI'),
+                database: configService.get('MONGODB_DB_NAME'),
+                useNewUrlParser: true,
+                entities: ["**/*.entity.js"],
+                logging: true,
             }),
-            inject: [ConfigService]
-        })
+        }),
     ],
 })
 export class AppModule {}
