@@ -3,10 +3,8 @@ import { ProductEntity } from './product.entity';
 
 @Injectable()
 export class ProductService {
-    constructor() { }
-
     async getProducts(): Promise<any[]> {
-        return [];
+        return [{name: 'getProuct1', price: 3}, {name: 'getProuct2', price: 1}];
     }
 
     async createProduct() {
