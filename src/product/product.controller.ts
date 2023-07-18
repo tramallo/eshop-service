@@ -1,7 +1,6 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductEntity } from './product.entity';
-import { SkipAuth } from '../auth/skip-auth.decorator';
 
 @Controller('product')
 export class ProductController {
