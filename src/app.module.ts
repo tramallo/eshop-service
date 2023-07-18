@@ -2,11 +2,12 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ProductModule } from "./product/product.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { envSchemaValidator } from "./env.validation";
 
 @Module({
   imports: [
     ProductModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ validate: envSchemaValidator }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
