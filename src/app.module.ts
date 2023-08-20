@@ -3,9 +3,11 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ProductModule } from "./product/product.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { envSchemaValidator } from "./env.validation";
+import { StorageModule } from "./storage/storage.module";
 
 @Module({
   imports: [
+    StorageModule,
     ProductModule,
     ConfigModule.forRoot({ validate: envSchemaValidator }),
     TypeOrmModule.forRootAsync({
