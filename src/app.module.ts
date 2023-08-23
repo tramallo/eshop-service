@@ -2,14 +2,15 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ProductModule } from "./product/product.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { envSchemaValidator } from "./env.validation";
 import { StorageModule } from "./storage/storage.module";
+import { transformAndValidateObject } from "./util";
+import { EnvSchema } from "./env.schema";
 
 @Module({
   imports: [
     StorageModule,
     ProductModule,
-    ConfigModule.forRoot({ validate: envSchemaValidator }),
+    ConfigModule.forRoot({ validate: (config) => transformAndValidateObject(config, EnvSchema) }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
