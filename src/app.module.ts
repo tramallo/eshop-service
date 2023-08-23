@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ProductModule } from "./product/product.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { StorageModule } from "./storage/storage.module";
-import { transformAndValidateObject } from "./util";
+import { transformAndValidateObject } from "./util/util";
 import { EnvSchema } from "./env.schema";
 
 @Module({

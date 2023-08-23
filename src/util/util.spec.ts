@@ -34,12 +34,12 @@ describe('util', () => {
             try {
                 output = transformAndValidateObject(inputObject, TestSchema);
             } catch (e) {
-                error = e;
+                error = e as Error;
             }
 
             expect(output).not.toBeDefined();
-            expect(error).toContain('id should not be null or undefined');
-            expect(error).toContain('array must be an array');
+            expect(error!.message).toContain('id should not be null or undefined');
+            expect(error!.message).toContain('array must be an array');
         })
 
     })
